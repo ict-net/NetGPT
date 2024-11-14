@@ -2,7 +2,27 @@
 
 ![](/images/NetGPT.png "NetGPT")
 
-## Requirements
+
+<!-- TOC -->
+
+## Outline
+
+- 1. Requirements
+- 2. Reproducing the results in the paper
+    - 2.1. Finetuning NetGPT for Traffic Understanding Tasks
+    - 2.2. Finetuning NetGPT for Traffic Generation Tasks
+- 3. Data Preprocessing
+    - 3.1. Data Preprocessing for Model Pre-training
+        - 3.1.1. Converting traffic into a corpus
+        - 3.1.2. Processing the pre-trained corpus
+    - 3.2. Data Preprocessing for Traffic Understanding Tasks
+    - 3.3. Data Preprocessing for Traffic Generation Tasks
+- 4. Model Pre-training
+- 5. Citation
+
+<!-- /TOC -->
+
+## 1. Requirements
 ```
 Python >= 3.6
 CUDA: 11.4
@@ -13,13 +33,13 @@ numpy == 1.19.2
 shutil, random, json, pickle, binascii, flowcontainer, argparse, packaging, tshark
 ```
 
-## Reproducing the results in the paper
+## 2. Reproducing the results in the paper
 
 You can fine-tune the model using [pre-trained NetGPT model](https://drive.google.com/file/d/1GNbWtVgrG9XcuApgkSl1hDRTsDXqm12R/view?usp=drive_link) and processed dataset we provide (we will give the corresponding files below). In addition, we will give the details of data preprocessing and model pretraining later.
 
 Note: this code is built upon [UER-py](https://github.com/dbiir/UER-py). We sincerely appreciate the authors’ contributions.
 
-### Finetuning NetGPT for Traffic Understanding Tasks
+### 2.1. Finetuning NetGPT for Traffic Understanding Tasks
 
 You can reproduce the results of the understanding tasks using the [provided processed dataset for understanding task](https://drive.google.com/drive/folders/1FBPrdFLm7qnCyPtUdTLGmPx_r3xLZqor?usp=sharing).
 
@@ -37,7 +57,7 @@ python3 finetune/run_understanding.py  --pretrained_model_path pretrained_model.
                                                   --pooling mean
 ```
 
-### Finetuning NetGPT for Traffic Generation Tasks
+### 2.2. Finetuning NetGPT for Traffic Generation Tasks
 
 You can reproduce the results of the generation tasks using the [provided processed dataset for generation task](https://drive.google.com/drive/folders/1zia8lT6HTEyp3mvKDygaFK6KfrNCf3ou?usp=sharing), note that don't need to set "labels_num".
 
@@ -57,11 +77,11 @@ python3 finetune/run_generation.py    --pretrained_model_path pretrained_model.b
                                       --tgt_seq_length 4
 ```
 
-## Data Preprocessing
+## 3. Data Preprocessing
 
-### Data Preprocessing for Model Pre-training
+### 3.1. Data Preprocessing for Model Pre-training
 
-#### Converting traffic into a corpus
+#### 3.1.1. Converting traffic into a corpus
 
 In order to pre-train the model, we first need to convert the traffic data into a corpus. Note you'll need to change the file paths and some configures at the top of the "main.py" file. Specifically, you need to
 
@@ -75,7 +95,7 @@ Finally, you can gnerate pre-training corpus by following the completion of PCAP
 python3 pre-process/main.py
 ```
 
-#### Processing the pre-trained corpus
+#### 3.1.2. Processing the pre-trained corpus
 
 ```
 python3 preprocess.py   --corpus_path corpora/traffic.txt \
@@ -86,7 +106,7 @@ python3 preprocess.py   --corpus_path corpora/traffic.txt \
 
 ```
 
-### Data Preprocessing for Traffic Understanding Tasks
+### 3.2. Data Preprocessing for Traffic Understanding Tasks
 
 ```
 python3 pre-process/input_generation_understanding.py   --pcap_path "data/pcap/" \
@@ -96,7 +116,7 @@ python3 pre-process/input_generation_understanding.py   --pcap_path "data/pcap/"
                                                         --random_seed 01
 ```
 
-### Data Preprocessing for Traffic Generation Tasks
+### 3.3. Data Preprocessing for Traffic Generation Tasks
 
 
 ```
@@ -108,7 +128,7 @@ python3 pre-process/input_generation_generation.py  --pcap_path "data/pcap/" \
 ```
 
 
-## Model Pre-training
+## 4. Model Pre-training
 
 You can use NetGPT directly by downloading the [pre-trained NetGPT model](https://drive.google.com/file/d/1GNbWtVgrG9XcuApgkSl1hDRTsDXqm12R/view?usp=drive_link), or pre-training NetGPT on your own corpus.
 
@@ -131,7 +151,7 @@ python3 pretrain.py   --dataset_path distributed/dataset.pt \
                       --tie_weights
 ```
 
-## Citation
+## 5. Citation
 
 ```
 @article{meng2023netgpt,
