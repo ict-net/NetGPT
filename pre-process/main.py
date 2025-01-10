@@ -202,7 +202,7 @@ def split_cap(pcap_file,pcap_name):
     return 0
 
 if __name__ == '__main__':
-    #preprocess(pcap_dir)
+    preprocess(pcap_dir)
     # build vocab
     build_BPE()
     build_vocab()
