@@ -84,7 +84,7 @@ def get_feature_packet(label_pcap,payload_len):
         
         if 'Ethernet' in packet:
             packet['Ethernet'].src = "00:00:00:00:00:00"
-            packet['Ethernet'].det = "00:00:00:00:00:00"
+            packet['Ethernet'].dst = "00:00:00:00:00:00"
         if 'IP' in packet:
             packet['IP'].src = "0.0.0.0"
             packet['IP'].dst = "0.0.0.0"
